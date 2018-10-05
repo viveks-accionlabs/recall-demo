@@ -1,0 +1,43 @@
+{
+  "name": "recall-demo",
+  "version": "1.0.0",
+  "description": "recall app accathon demo",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./index.js",
+    "lint": "eslint **/*.js --ignore-path .gitignore",
+    "lint:fix": "yarn lint -- --fix",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/viveks-accionlabs/recall-demo.git"
+  },
+  "keywords": [
+    "recall",
+    "bot",
+    "caller"
+  ],
+  "author": "vivek",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/viveks-accionlabs/recall-demo/issues"
+  },
+  "homepage": "https://github.com/viveks-accionlabs/recall-demo#readme",
+  "dependencies": {
+    "bluebird": "^3.5.2",
+    "dialogflow": "^0.7.0",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "express-basic-auth": "^1.1.5",
+    "mongoose": "^5.3.1",
+    "socket.io": "^2.1.1",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "eslint": "^5.6.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "nodemon": "^1.18.4"
+  }
+}

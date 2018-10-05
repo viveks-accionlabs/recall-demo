@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Recall-Demo</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <section>
+      <h1>re-call bot demo</h1>
+      <button class="connect-phone"><i class="fas fa-phone"></i></button>
+      <button class="disconnect-phone" style="display: none;"><i class="fas fa-phone-slash"></i></button>
+      <div>
+        <p>You said: <em class="output-you">...</em></p>
+        <p>Bot said: <em class="output-bot">...</em></p>
+      </div>
+    </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+    <script>
+      const socket = io();
+      const outputYou = document.querySelector('.output-you');
+      const outputBot = document.querySelector('.output-bot');
+      const connect = document.querySelector('.connect-phone');
+      const disconnect = document.querySelector('.disconnect-phone');
+
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const recognition = new SpeechRecognition();
+
+      recognition.lang = 'en-US';
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+
+      connect.addEventListener('click', () => {
+        socket.emit('userMessage', 'Hi');
+        // recognition.start();
+        // disable the button click
+        connect.style.display = "none";
+        disconnect.style.display = "block";
+      });
+
+      disconnect.addEventListener('click', () => {
+        recognition.stop();
+        // disable the button click
+        connect.style.display = "block";
+        disconnect.style.display = "none";
+      });
+
+      recognition.addEventListener('speechstart', () => {
+        console.log('Speech has been detected.');
+      });
+
+      recognition.addEventListener('result', (e) => {
+        console.log('Result has been detected.');
+
+        let last = e.results.length - 1;
+        let text = e.results[last][0].transcript;
+
+        outputYou.textContent = text;
+        console.log('Confidence: ' + e.results[0][0].confidence);
+        socket.emit('userMessage', text);
+        recognition.stop();
+      });
+
+      // recognition.addEventListener('speechend', () => {
+      //   recognition.stop();
+      //   connect.removeAttribute('disabled');
+      // });
+
+      recognition.addEventListener('error', (e) => {
+        outputBot.textContent = 'Error: ' + e.error;
+      });
+
+      function synthVoice(text) {
+        const synth = window.speechSynthesis;
+        const utterance = new SpeechSynthesisUtterance();
+        utterance.text = text;
+        synth.speak(utterance);
+        recognition.start();
+        recognition.continuous = true;
+      }
+
+      socket.on('botReply', function(replyText) {
+        synthVoice(replyText);
+        if(replyText == '') replyText = 'No answer...';
+        outputBot.textContent = replyText;
+      });
+    </script>
+  </body>
+</html>
