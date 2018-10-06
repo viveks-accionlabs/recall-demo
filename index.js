@@ -35,6 +35,6 @@ io.on('connection', (socket) => {
     console.log(`Message: ${text}`);
     const intent = await ai.getIntent(text);
     console.log(intent);
-    socket.emit('botReply', `Bot Reply ${intent}`);
+    socket.emit('botReply', intent);
   });
 });

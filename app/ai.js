@@ -43,6 +43,12 @@ exports.getIntent = async (text) => {
         if (!records.length) { return 'There is no message to read'; }
         const messages = records.map(r => r.message);
         const message = (messages.length > 1) ? messages.join(' and the another message is ') : messages[0];
+        // update all the readFlag after read
+        Records.update(
+          { readFlag: false },
+          { $set: { readFlag: true } },
+          { multi: true },
+        ).then(() => console.log('all messages got read'));
         return message;
       }
       console.log(`Intent: ${result.intent.displayName}`);
