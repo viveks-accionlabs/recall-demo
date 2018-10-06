@@ -50,6 +50,7 @@
       });
 
       disconnect.addEventListener('click', () => {
+        recognition.abort();
         recognition.stop();
         // change the button
         connect.style.display = "block";
