@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/viveks-accionlabs/recall-demo.git"
+    "url": "git+https://github.com/keviveks/recall-demo.git"
   },
   "keywords": [
     "recall",
@@ -21,23 +21,24 @@
   "author": "vivek",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/viveks-accionlabs/recall-demo/issues"
+    "url": "https://github.com/keviveks/recall-demo/issues"
   },
-  "homepage": "https://github.com/viveks-accionlabs/recall-demo#readme",
+  "homepage": "https://github.com/keviveks/recall-demo#readme",
   "dependencies": {
-    "bluebird": "^3.5.2",
-    "dialogflow": "^0.7.0",
-    "dotenv": "^6.0.0",
-    "express": "^4.16.3",
-    "express-basic-auth": "^1.1.5",
-    "mongoose": "^5.3.1",
-    "socket.io": "^2.1.1",
-    "uuid": "^3.3.2"
+    "bluebird": "^3.7.2",
+    "dialogflow": "^1.2.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-basic-auth": "^1.2.0",
+    "lodash": "^4.17.15",
+    "mongoose": "^5.9.7",
+    "socket.io": "^2.3.0",
+    "uuid": "^7.0.3"
   },
   "devDependencies": {
-    "eslint": "^5.6.1",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.14.0",
-    "nodemon": "^1.18.4"
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "nodemon": "^2.0.2"
   }
 }
